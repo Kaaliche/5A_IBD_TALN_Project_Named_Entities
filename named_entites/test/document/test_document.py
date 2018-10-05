@@ -1,5 +1,5 @@
 from unittest import TestCase
-from named_entites.Document import Document
+from named_entites.document import Document
 
 class TestDocument(TestCase):
     def setUp(self):

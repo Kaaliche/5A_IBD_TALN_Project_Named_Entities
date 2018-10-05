@@ -1,5 +1,5 @@
 from _tracemalloc import start
-from Document.interval import Interval
+from document.interval import Interval
 
 
 class Token(Interval):

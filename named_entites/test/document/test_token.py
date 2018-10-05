@@ -1,5 +1,5 @@
 from unittest import TestCase
-from named_entites.Document import Token
+from named_entites.document import Token
 
 class TestToken(TestCase):
     def setUp(self):

@@ -1,4 +1,4 @@
-from Document.interval import Interval
+from document.interval import Interval
 
 
 class Sentence(Interval):

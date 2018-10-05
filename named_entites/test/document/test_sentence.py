@@ -1,5 +1,5 @@
 from unittest import TestCase
-from named_entites.Document import Sentence
+from named_entites.document import Sentence
 
 class TestSentence(TestCase):
     def setUp(self):
