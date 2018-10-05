@@ -20,31 +20,30 @@ class Token(Interval):
         
         Interval.__init__(self, start, end)
         self._doc = document
-        # TODO: To be implemented
+        self._start = start
+        self._end = end
+        self._pos = pos
+        self._shape = shape
+        self._text = text
 
 
 @property
 def text(self):
+    return self._text
     pass
-#TODO: To be implemented
 
 @property
 def pos(self):
+    return self._pos
     pass
 
-# TODO: To be implemented
 
 @property
 def shape(self):
-
-
-# TODO: To be implemented
+    return self._shape
     pass
 
 def __getitem__(self, item):
-
-
-# TODO: To be implemented
     pass
 
 def __repr__(self):
