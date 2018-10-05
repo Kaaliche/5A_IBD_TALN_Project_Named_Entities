@@ -1,4 +1,3 @@
-from _tracemalloc import start
 from document.interval import Interval
 
 
@@ -20,8 +19,6 @@ class Token(Interval):
 
         Interval.__init__(self, start, end)
         self._doc = document
-        self._start = start
-        self._end = end
         self._pos = pos
         self._shape = shape
         self._text = text
