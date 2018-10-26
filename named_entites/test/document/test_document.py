@@ -1,18 +1,13 @@
+import os
 from unittest import TestCase
 from named_entites.document import Document
+from data import DATA_DIR
 
 class TestDocument(TestCase):
-    def setUp(self):
-        self.Object = Document(None)
-
     def test_create_from_text(self):
-        self.fail()
-
-    def test__retokenize(self):
-        self.fail()
-
-    def test__find_tokens(self):
-        self.fail()
-
-    def test__find_sentences(self):
-        self.fail()
+        text = "This one sentence. This is an other sentence"
+        doc = Document.create_from_text(text)
+        self.assertEqual(len(doc.tokens), 9)
+        self.assertEqual(len(doc.sentences), 2)
+        self.assertEqual(doc.tokens[0].text, "This")
+        self.assertEqual(doc.tokens[-1].text, "sentence")
