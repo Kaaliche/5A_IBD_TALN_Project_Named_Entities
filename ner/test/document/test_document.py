@@ -1,7 +1,6 @@
-import os
 from unittest import TestCase
-from named_entites.document import Document
-from data import DATA_DIR
+from ner.document import Document
+
 
 class TestDocument(TestCase):
     def test_create_from_text(self):

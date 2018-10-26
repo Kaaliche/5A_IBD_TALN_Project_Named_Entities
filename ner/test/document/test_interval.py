@@ -1,5 +1,5 @@
 import unittest
-from named_entites.document import Interval
+from ner.document import Interval
 
 class TestInterval(unittest.TestCase):
     def setUp(self):

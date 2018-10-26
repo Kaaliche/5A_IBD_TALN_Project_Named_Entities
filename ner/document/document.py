@@ -3,7 +3,7 @@ import re
 import nltk
 
 
-from named_entites.document import Sentence, Interval, Token
+from ner.document import Sentence, Interval, Token
 
 
 class Document:

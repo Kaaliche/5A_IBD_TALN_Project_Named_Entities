@@ -1,5 +1,5 @@
 import unittest
-from named_entites.document import Token
+from ner.document import Token
 
 
 class TestToken(unittest.TestCase):

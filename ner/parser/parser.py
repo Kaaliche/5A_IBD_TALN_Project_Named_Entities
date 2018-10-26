@@ -1,4 +1,4 @@
-from named_entites.document import Document
+from ner.document import Document
 
 class Parser(object):
     """Classe parente pour tous les parsers"""
