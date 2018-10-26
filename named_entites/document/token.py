@@ -1,4 +1,4 @@
-from document.interval import Interval
+from named_entites.document import Interval
 
 
 class Token(Interval):

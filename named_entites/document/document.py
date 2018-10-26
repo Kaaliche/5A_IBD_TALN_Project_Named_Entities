@@ -2,7 +2,7 @@ from typing import List
 
 import nltk
 
-from document import Sentence
+from named_entites.document import Sentence
 
 
 class Document:
