@@ -2,7 +2,9 @@ from typing import List
 
 import nltk
 
-from named_entites.document import Sentence
+import nltk.re as re
+
+from named_entites.document import Sentence, Interval, Token
 
 
 class Document:
@@ -107,3 +109,43 @@ class Document:
             else:
                 missing = sentence
         return sentences
+
+    def get_shape_category(token):
+        if re.match('^[\n]+$', token):  # IS LINE BREAK
+            return 'NL'
+        if any(char.isdigit() for char in token) and re.match('^[0-9.,]+$', token):  # IS NUMBER (E.G., 2, 2.000)
+            return 'NUMBER'
+        if re.fullmatch('[^A-Za-z0-9\t\n ]+', token):  # IS SPECIAL CHARS (E.G., $, #, ., *)
+            return 'SPECIAL'
+        if re.fullmatch('^[A-Z\-.]+$', token):  # IS UPPERCASE (E.G., AGREEMENT, INC.)
+            return 'ALL-CAPS'
+        if re.fullmatch('^[A-Z][a-z\-.]+$', token):  # FIRST LETTER UPPERCASE (E.G. This, Agreement)
+            return '1ST-CAP'
+        if re.fullmatch('^[a-z\-.]+$', token):  # IS LOWERCASE (E.G., may, third-party)
+            return 'LOWER'
+        if not token.isupper() and not token.islower():  # WEIRD CASE (E.G., 3RD, E2, iPhone)
+            return 'MISC'
+        return 'MISC'
+
+    @classmethod
+    def create_from_vectors(cls, words: List[str], sentences: List[Interval] = None, labels: List[str] = None):
+        doc = Document()
+        text = []
+        offset = 0
+        doc.sentences = []
+        for sentence in sentences:
+            text.append(' '.join(words[sentence.start:sentence.end + 1]) + ' ')
+            doc.sentences.append(Interval(offset, offset + len(text[-1])))
+            offset += len(text[-1])
+        doc.text = ''.join(text)
+
+        offset = 0
+        doc.tokens = []
+        for word_pos, label in zip(nltk.pos_tagger(words), labels):
+            word = word_pos[0]
+            pos_tag = word_pos[1]
+            pos = doc.text.find(word, offset)
+            if pos >= 0:
+                offset = pos + len(word)
+                doc.tokens.append(Token(doc, pos, offset, pos_tag, get_shape_category(word), word, label=label))
+        return doc
