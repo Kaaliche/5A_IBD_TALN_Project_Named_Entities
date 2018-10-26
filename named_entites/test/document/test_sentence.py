@@ -1,9 +1,13 @@
-from unittest import TestCase
+import unittest
 from named_entites.document import Sentence
 
-class TestSentence(TestCase):
+class TestSentence(unittest.TestCase):
     def setUp(self):
-        self.Object = Sentence(None, 0, 10)
+        self.object = Sentence("hello world", 0, 11)
 
     def test_tokens(self):
-        self.fail()
+#        self.assertEqual(self.object.tokens, "hello world", "wrong text")
+        # TODO: To be implemented
+        NotImplementedError
+if __name__ == '__main__':
+    unittest.main()

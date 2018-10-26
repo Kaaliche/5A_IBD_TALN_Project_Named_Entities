@@ -2,6 +2,8 @@ from typing import List
 
 import nltk
 
+from document import Sentence
+
 
 class Document:
     """
@@ -81,6 +83,27 @@ class Document:
         # Record missing
 
     @staticmethod
-    def _find_sentences(doc, sentences: List[str], doc_text: str):
-        """ yield Sentence objects each time a sentence is found in the text """
-        # TODO: To be implemented
+    def _find_sentences(doc: 'Document', sentences_tokens: List[str], text: str) -> 'List[Sentence]':
+        """
+        List Sentence objects each time a sentence is found in the text
+        :param doc: reference to documents instance
+        :param sentences_tokens: list of strings(sentences) coming out of nltk.sent_tokenize
+        :param text: Document text as a string
+        """
+        offset = 0
+        sentences = []
+        missing = None
+        for sentence in sentences_tokens:
+            pos = text.find(sentence, offset, offset + max(500, len(sentence)))
+            if pos > -1:
+                if missing:
+                    s = Sentence(doc, offset + pos, offset + pos + len(missing))
+                    sentences.append(s)
+                    offset += len(missing)
+                    missing = None
+                s = Sentence(doc, offset + pos, offset + pos + len(sentence))
+                sentences.append(s)
+                offset += len(sentence)
+            else:
+                missing = sentence
+        return sentences
