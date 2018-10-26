@@ -1,8 +1,7 @@
 from typing import List
-
+import re
 import nltk
 
-import nltk.re as re
 
 from named_entites.document import Sentence, Interval, Token
 
@@ -110,6 +109,7 @@ class Document:
                 missing = sentence
         return sentences
 
+    @staticmethod
     def get_shape_category(token):
         if re.match('^[\n]+$', token):  # IS LINE BREAK
             return 'NL'
@@ -147,5 +147,5 @@ class Document:
             pos = doc.text.find(word, offset)
             if pos >= 0:
                 offset = pos + len(word)
-                doc.tokens.append(Token(doc, pos, offset, pos_tag, get_shape_category(word), word, label=label))
+                doc.tokens.append(Token(doc, pos, offset, pos_tag, cls.get_shape_category(word), word, label=label))
         return doc
