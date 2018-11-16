@@ -14,7 +14,7 @@ class Vectorizer:
         :param word_embedding_path: path to gensim embedding file
         """
         # TODO: Load word embeddings from file
-        word_embedding_path = KeyedVectors.load_word2vec_format(DATA_DIR, 'files', 'glove.6B.50d.txt')
+        self.word_embedding_path = KeyedVectors.load_word2vec_format(DATA_DIR, 'files', 'glove.6B.50d.txt')
 
         # Create POS to index dictionary
         self.pos2index = {'PAD': 0, 'TO': 1, 'VBN': 2, "''": 3, 'WP': 4, 'UH': 5, 'VBG': 6, 'JJ': 7, 'VBZ': 8, '--': 9,
