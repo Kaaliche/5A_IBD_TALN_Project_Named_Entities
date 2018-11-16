@@ -22,9 +22,10 @@ class Vectorizer:
                           'LS': 45}
         # TODO: Create shape to index dictionary
 
-        shape = {'NL': 0, 'NUMBER': 1, 'SPECIAL': 2, 'ALL-CAPS': 3,
-                 '1ST-CAP': 4, 'LOWER': 5, 'MISC': 6}
+        shape_dictonnary = {'NL': 0, 'NUMBER': 1, 'SPECIAL': 2, 'ALL-CAPS': 3, '1ST-CAP': 4, 'LOWER': 5, 'MISC': 6}
         # TODO: Create labels to index dictionary
+        labels_dictonnary = {'O': 0,  'PER': 1, 'I-PER': 1, 'B-PER': 1, 'LOC': 2, 'I-LOC': 2, 'B-LOC': 2, 'ORG' :3,
+                             'I-ORG': 3, 'B-ORG': 3,  'MISC': 4, 'I-MISC': 4, 'B-MISC': 4}
 
     def encode_features(self, documents: List[Document]):
         """
