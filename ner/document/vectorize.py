@@ -21,6 +21,9 @@ class Vectorizer:
                           'VB': 36, 'WRB': 37, 'NNP': 38, 'EX': 39, 'NNS': 40, 'SYM': 41, 'CC': 42, 'CD': 43, 'POS': 44,
                           'LS': 45}
         # TODO: Create shape to index dictionary
+
+        shape = {'NL': 0, 'NUMBER': 1, 'SPECIAL': 2, 'ALL-CAPS': 3,
+                 '1ST-CAP': 4, 'LOWER': 5, 'MISC': 6}
         # TODO: Create labels to index dictionary
 
     def encode_features(self, documents: List[Document]):
