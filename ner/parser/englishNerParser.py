@@ -1,5 +1,6 @@
 from ner.parser import Parser
-from ner.document import Document
+from ner.document import Document, Interval
+
 
 class EnglishNerParser(Parser):
     def read(self, content: str) -> Document:
@@ -18,15 +19,14 @@ class EnglishNerParser(Parser):
                     tag.append(line.split()[3])
                     i += 1
                 elif i != 0:
-                    sentence = ""
-                    for j in range(start_cursor, i):
-                        if start_cursor == i:
-                            sentence += words[j]
-                        else:
-                            sentence += words[j] + " "
-                        j += 1
+                    sentences.append(Interval(start_cursor, i))
                     start_cursor = i
-                    sentences.append(sentence)
+                    """""sentence = ""
+                    for j in range(start_cursor, i):
+                        sentence += (words[j] + " ",words[j])[start_cursor == i]
+                        j += 1
+                    start_cursor = i"""""
+
 
         # 1. Split the text in documents using string '-DOCSTART- -X- O O' and loop over it
         # 2. Split lines and loop over

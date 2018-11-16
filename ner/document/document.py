@@ -1,6 +1,7 @@
 from typing import List
 import re
 import nltk
+from nltk import pos_tag as nltk_pos_tagger
 
 
 from ner.document import Sentence, Interval, Token
@@ -126,7 +127,7 @@ class Document:
 
         offset = 0
         doc.tokens = []
-        for word_pos, label in zip(nltk.pos_tagger(words), labels):
+        for word_pos, label in zip(nltk_pos_tagger(words), labels):
             word = word_pos[0]
             pos_tag = word_pos[1]
             pos = doc.text.find(word, offset)
