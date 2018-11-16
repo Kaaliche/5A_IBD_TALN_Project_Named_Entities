@@ -21,7 +21,6 @@ class Vectorizer:
                           'VB': 36, 'WRB': 37, 'NNP': 38, 'EX': 39, 'NNS': 40, 'SYM': 41, 'CC': 42, 'CD': 43, 'POS': 44,
                           'LS': 45}
         # TODO: Create shape to index dictionary
-
         shape_dictonnary = {'NL': 0, 'NUMBER': 1, 'SPECIAL': 2, 'ALL-CAPS': 3, '1ST-CAP': 4, 'LOWER': 5, 'MISC': 6}
         # TODO: Create labels to index dictionary
         labels_dictonnary = {'O': 0,  'PER': 1, 'I-PER': 1, 'B-PER': 1, 'LOC': 2, 'I-LOC': 2, 'B-LOC': 2, 'ORG' :3,
