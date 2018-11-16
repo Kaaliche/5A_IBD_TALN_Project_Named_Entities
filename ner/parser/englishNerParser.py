@@ -21,12 +21,6 @@ class EnglishNerParser(Parser):
                 elif i != 0:
                     sentences.append(Interval(start_cursor, i))
                     start_cursor = i
-                    """""sentence = ""
-                    for j in range(start_cursor, i):
-                        sentence += (words[j] + " ",words[j])[start_cursor == i]
-                        j += 1
-                    start_cursor = i"""""
-
 
         # 1. Split the text in documents using string '-DOCSTART- -X- O O' and loop over it
         # 2. Split lines and loop over

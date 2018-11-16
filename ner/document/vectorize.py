@@ -1,4 +1,5 @@
 from typing import List
+import os
 
 from gensim.models import KeyedVectors
 
@@ -14,7 +15,7 @@ class Vectorizer:
         :param word_embedding_path: path to gensim embedding file
         """
         # TODO: Load word embeddings from file
-        self.word_embedding_path = KeyedVectors.load_word2vec_format(DATA_DIR, 'files', 'glove.6B.50d.txt')
+        self.word_embedding_path = KeyedVectors.load_word2vec_format(word_embedding_path)
 
         # Create POS to index dictionary
         self.pos2index = {'PAD': 0, 'TO': 1, 'VBN': 2, "''": 3, 'WP': 4, 'UH': 5, 'VBG': 6, 'JJ': 7, 'VBZ': 8, '--': 9,
@@ -24,9 +25,9 @@ class Vectorizer:
                           'VB': 36, 'WRB': 37, 'NNP': 38, 'EX': 39, 'NNS': 40, 'SYM': 41, 'CC': 42, 'CD': 43, 'POS': 44,
                           'LS': 45}
         # TODO: Create shape to index dictionary
-        shape_dictonnary = {'NL': 0, 'NUMBER': 1, 'SPECIAL': 2, 'ALL-CAPS': 3, '1ST-CAP': 4, 'LOWER': 5, 'MISC': 6}
+        self.shape_dictionnary = {'NL': 0, 'NUMBER': 1, 'SPECIAL': 2, 'ALL-CAPS': 3, '1ST-CAP': 4, 'LOWER': 5, 'MISC': 6}
         # TODO: Create labels to index dictionary
-        labels_dictonnary = {'O': 0,  'PER': 1, 'I-PER': 1, 'B-PER': 1, 'LOC': 2, 'I-LOC': 2, 'B-LOC': 2, 'ORG' :3,
+        self.labels_dictonnary = {'O': 0,  'PER': 1, 'I-PER': 1, 'B-PER': 1, 'LOC': 2, 'I-LOC': 2, 'B-LOC': 2, 'ORG' :3,
                              'I-ORG': 3, 'B-ORG': 3,  'MISC': 4, 'I-MISC': 4, 'B-MISC': 4}
 
     def encode_features(self, documents: List[Document]):
@@ -37,6 +38,13 @@ class Vectorizer:
                  Each item in the list is a sentence, i.e. a list of indices (one per token)
         """
         # TODO:
+        shape_index, text_index = [], []
+        for doc in documents:
+            for sentence in doc.sentences:
+                for token in sentence.tokens:
+                    text_index.append(self.pos2index(token.text))
+                    shape_index.append(self.shape_dictionnary[token.shape])
+
         # Loop over documents
         #    Loop over sentences
         #        Loop over tokens
