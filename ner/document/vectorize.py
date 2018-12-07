@@ -15,7 +15,7 @@ class Vectorizer:
         :param word_embedding_path: path to gensim embedding file
         """
         # TODO: Load word embeddings from file
-        self.word_embedding_path = KeyedVectors.load_word2vec_format(word_embedding_path)
+        self.word_embedding = KeyedVectors.load_word2vec_format(word_embedding_path)
 
         # Create POS to index dictionary
         self.pos2index = {'PAD': 0, 'TO': 1, 'VBN': 2, "''": 3, 'WP': 4, 'UH': 5, 'VBG': 6, 'JJ': 7, 'VBZ': 8, '--': 9,
@@ -38,13 +38,16 @@ class Vectorizer:
                  Each item in the list is a sentence, i.e. a list of indices (one per token)
         """
         # TODO:
-        shape_index, text_index = [], []
+        shape_index, text_index,pos_index = [], [], []
         for doc in documents:
             for sentence in doc.sentences:
                 for token in sentence.tokens:
-                    text_index.append(self.pos2index(token.text))
+                    if token.text.lower() in self.word_embedding.index2word:
+                        text_index.append(self.word_embedding.index2word.index(token.text.lower()))
+                    else:
+                        text_index.append(0)
                     shape_index.append(self.shape_dictionnary[token.shape])
-
+                    pos_index.append(self.pos2index)
         # Loop over documents
         #    Loop over sentences
         #        Loop over tokens
