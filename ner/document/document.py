@@ -121,7 +121,7 @@ class Document:
         doc.sentences = []
         for sentence in sentences:
             text.append(' '.join(words[sentence.start:sentence.end + 1]) + ' ')
-            doc.sentences.append(Interval(offset, offset + len(text[-1])))
+            doc.sentences.append(Sentence(doc, offset, offset + len(text[-1])))
             offset += len(text[-1])
         doc.text = ''.join(text)
 

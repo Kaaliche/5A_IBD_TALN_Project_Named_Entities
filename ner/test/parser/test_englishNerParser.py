@@ -7,4 +7,6 @@ class TestEnglishNerParser(TestCase):
 
     def test_read(self):
         filename = os.path.join(DATA_DIR, 'files', 'eng.test.txt')
-        EnglishNerParser().read_file(filename)
+        documents = EnglishNerParser().read_file(filename)
+        self.assertEqual(len(documents), 946)
+
