@@ -59,7 +59,7 @@ class Vectorizer:
             text_index.append(text_local)
             shape_index.append(shape_local)
             pos_index.append(pos_local)
-        return(text_index, pos_index, shape_index)
+        return text_index, pos_index, shape_index
 
 
     def encode_annotations(self, documents: List[Document]):
@@ -76,7 +76,9 @@ class Vectorizer:
         # return labels
         num_label = []
         for doc in documents:
+            lab_local = []
             for sentence in doc.sentences:
                 for token in sentence.tokens:
-                    num_label.append(self.labels_dictonnary[token.label])
-                    pass
+                    lab_local.append(self.labels_dictonnary[token.label])
+            num_label.append(lab_local)
+        return  num_label
