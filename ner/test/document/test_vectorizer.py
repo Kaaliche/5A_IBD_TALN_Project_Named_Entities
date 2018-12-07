@@ -15,3 +15,5 @@ class TestVectorizer(TestCase):
         path_embeding = os.path.join(DATA_DIR, 'files', 'glove.6B.50d.txt')
 
         Vectorizer(path_embeding).encode_features(parse)
+
+        Vectorizer(path_embeding).encode_annotations(parse)

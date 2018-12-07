@@ -38,17 +38,6 @@ class Vectorizer:
                  Each item in the list is a sentence, i.e. a list of indices (one per token)
         """
         # TODO:
-        shape_index, text_index,pos_index = [], [], []
-        for doc in documents:
-            for sentence in doc.sentences:
-                for token in sentence.tokens:
-                    if token.text.lower() in self.word_embedding.index2word:
-                        text_index.append(self.word_embedding.index2word.index(token.text.lower()))
-                    else:
-                        text_index.append(0)
-                    shape_index.append(self.shape_dictionnary[token.shape])
-                    pos_index.append(self.pos2index[token.pos])
-                    return(self.word_embedding.index2word.index(token.text.lower()),self.pos2index[token.pos], self.shape_dictionnary[token.shape])
         # Loop over documentsself.shape_dictionnary[token.pos],
         #    Loop over sentences
         #        Loop over tokens
@@ -56,6 +45,22 @@ class Vectorizer:
         #           Add to array
         #
         # return word, pos, shape
+        shape_index, text_index,pos_index = [], [], []
+        for doc in documents:
+            text_local,shape_local, pos_local = [],[],[]
+            for sentence in doc.sentences:
+                for token in sentence.tokens:
+                    if token.text.lower() in self.word_embedding.index2word:
+                        text_local.append(self.word_embedding.index2word.index(token.text.lower()))
+                    else:
+                        text_local.append(0)
+                    shape_local.append(self.shape_dictionnary[token.shape])
+                    pos_local.append(self.pos2index[token.pos])
+            text_index.append(text_local)
+            shape_index.append(shape_local)
+            pos_index.append(pos_local)
+        return(text_index, pos_index, shape_index)
+
 
     def encode_annotations(self, documents: List[Document]):
         """
@@ -69,3 +74,9 @@ class Vectorizer:
         #           Convert label to numerical representation
         #           Append to sentence
         # return labels
+        num_label = []
+        for doc in documents:
+            for sentence in doc.sentences:
+                for token in sentence.tokens:
+                    num_label.append(self.labels_dictonnary[token.label])
+                    pass
