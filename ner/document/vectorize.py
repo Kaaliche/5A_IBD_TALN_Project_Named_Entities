@@ -47,8 +47,8 @@ class Vectorizer:
         # return word, pos, shape
         shape_index, text_index,pos_index = [], [], []
         for doc in documents:
-            text_local,shape_local, pos_local = [],[],[]
             for sentence in doc.sentences:
+                text_local, shape_local, pos_local = [], [], []
                 for token in sentence.tokens:
                     if token.text.lower() in self.word_embedding.index2word:
                         text_local.append(self.word_embedding.index2word.index(token.text.lower()))
@@ -56,9 +56,9 @@ class Vectorizer:
                         text_local.append(0)
                     shape_local.append(self.shape_dictionnary[token.shape])
                     pos_local.append(self.pos2index[token.pos])
-            text_index.append(text_local)
-            shape_index.append(shape_local)
-            pos_index.append(pos_local)
+                text_index.append(text_local)
+                shape_index.append(shape_local)
+                pos_index.append(pos_local)
         return text_index, pos_index, shape_index
 
 
@@ -76,9 +76,10 @@ class Vectorizer:
         # return labels
         num_label = []
         for doc in documents:
-            lab_local = []
+
             for sentence in doc.sentences:
+                lab_local = []
                 for token in sentence.tokens:
                     lab_local.append(self.labels_dictonnary[token.label])
-            num_label.append(lab_local)
-        return  num_label
+                num_label.append(lab_local)
+        return num_label
