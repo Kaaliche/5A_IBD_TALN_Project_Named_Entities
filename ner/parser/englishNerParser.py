@@ -18,11 +18,11 @@ class EnglishNerParser(Parser):
                     words.append(line.split()[0])
                     tag.append(line.split()[3])
                     i += 1
-                elif i != 0:
-                    sentences.append(Interval(start_cursor, i))
+                elif start_cursor < i:
+                    sentences.append(Interval(start_cursor, i -1))
                     start_cursor = i
 
-        # 1. Split the text in documents using string '-DOCSTART- -X- O O' and loop over it
+            # 1. Split the text in documents using string '-DOCSTART- -X- O O' and loop over it
         # 2. Split lines and loop over
         # 3. Make vectors of tokens and labels (colunn 4) and at the '\n\n' make a sentence
         # 4. Create a Document object

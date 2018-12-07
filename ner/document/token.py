@@ -38,6 +38,10 @@ class Token(Interval):
     @property
     def shape(self):
         return self._shape
+
+    @property
+    def label(self):
+        return self._label
     
 
     def __repr__(self):
