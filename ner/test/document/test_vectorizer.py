@@ -10,10 +10,12 @@ class TestVectorizer(TestCase):
 
 
     def test_read(self):
-        filename = os.path.join(DATA_DIR, 'files', 'eng.test.txt')
+        filename = os.path.join(DATA_DIR, 'files', 'test.txt')
         parse = EnglishNerParser().read_file(filename)
         path_embeding = os.path.join(DATA_DIR, 'files', 'glove.6B.50d.txt')
 
-        Vectorizer(path_embeding).encode_features(parse)
+        word, pos, shape = Vectorizer(path_embeding).encode_features(parse)
+
+        self.assertEqual(len(word), 2)
 
         Vectorizer(path_embeding).encode_annotations(parse)
