@@ -3,6 +3,7 @@ from ner.document import Document
 
 
 class TestDocument(TestCase):
+
     def test_create_from_text(self):
         text = "This one sentence. This is an other sentence"
         doc = Document.create_from_text(text)

@@ -17,4 +17,3 @@ class TestEnglishNerParser(TestCase):
 
         self.assertEqual(len(documents[0].sentences[0].tokens), 9)
         self.assertEqual(len(documents[0].sentences[1].tokens), 2)
-

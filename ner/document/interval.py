@@ -52,13 +52,13 @@ class Interval:
         """ Return the interval common to self and other """
         a, b = sorted((self, other))
         if a.end <= b.start:
-            return Interval(self.start, self.start)
+            return Interval(a.end, b.start)
         return Interval(b.start, min(a.end, b.end))
 
     def overlaps(self, other) -> bool:
         """ Return True if there exists an interval common to self and other """
         a, b = sorted((self, other))
-        return a.end > b.start
+        return a.end < b.start
 
     def shift(self, i: int):
         self.start += i
