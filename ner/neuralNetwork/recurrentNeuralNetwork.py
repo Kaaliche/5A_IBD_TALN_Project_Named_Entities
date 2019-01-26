@@ -29,7 +29,7 @@ class RecurrentNeuralNetwork():
             return proba.argmax(axis=-1)
         else:
             return (proba > 0.5).astype('int32')
-
+    '''
     @classmethod
     def build_sequence(cls, word_embeddings, input_shape: dict, out_shape: int, units=100, dropout_rate=0.5):
 
@@ -73,8 +73,9 @@ class RecurrentNeuralNetwork():
 
         print(model.summary())
         return RecurrentNeuralNetwork(model)
+    '''
 
-    ''' @classmethod
+    @classmethod
     def build_classification(cls, word_embeddings, input_shape: dict, out_shape: int, units=100,
                              dropout_rate=0.5):
 
@@ -97,9 +98,24 @@ class RecurrentNeuralNetwork():
 
         # Build the rest of the model here
 
+        bilstm = Bidirectional(LSTM(units, activation='tanh', return_sequences=True), name='bi-lstm')(merged_input)
+
+        lstm = LSTM(units, activation='tanh', name='lstm', return_sequences=True)(bilstm)
+
+        lstm = Dropout(dropout_rate, name='second_dropout')(lstm)
+
+        output = Dense(out_shape, activation='softmax')(lstm)
+
+        # Build and compile model
+        model = Model(inputs=[word_input, pos_input, shape_input], outputs=output)
+
+        model.compile(optimizer='adam',
+                      loss='binary_crossentropy',
+                      metrics=['accuracy'])
+
         print(model.summary())
-        return Recurrent(model)
-    '''
+        return RecurrentNeuralNetwork(model)
+
     @classmethod
     def load(cls, filename):
         return RecurrentNeuralNetwork(load_model(filename))
